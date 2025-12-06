@@ -61,8 +61,8 @@ export default function App() {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
               <span className="font-bold text-white text-lg">I</span>
             </div>
-            <span className="font-bold text-xl tracking-tight hidden sm:inline">InterviewCoach<span className="text-blue-500">.ai</span></span>
-            <span className="font-bold text-xl tracking-tight sm:hidden">IC<span className="text-blue-500">.ai</span></span>
+            <span className="font-bold text-xl tracking-tight hidden sm:inline">InterviewSaarthi<span className="text-blue-500">.ai</span></span>
+            <span className="font-bold text-xl tracking-tight sm:hidden">IS<span className="text-blue-500">.ai</span></span>
           </div>
           
           {/* Center: Steps (Hidden on mobile) */}

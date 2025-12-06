@@ -30,7 +30,7 @@ export const SetupPhase: React.FC<SetupPhaseProps> = ({ onComplete }) => {
     <div className="max-w-4xl mx-auto w-full p-6 animate-fade-in">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
-          AI Interview Coach
+          InterviewSaarthi
         </h1>
         <p className="text-slate-400 text-lg">
           Master your next interview with real-time, voice-based AI simulation.

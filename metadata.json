@@ -1,5 +1,5 @@
 {
-  "name": "InterviewCoach.ai",
+  "name": "InterviewSaarthi.ai",
   "description": "An intelligent interview coaching app utilizing Gemini 2.5 Live API for real-time conversational mock interviews.",
   "requestFramePermissions": [
     "microphone"
