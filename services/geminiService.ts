@@ -4,6 +4,11 @@ import { GeneratedQuestion, InterviewContext, InterviewReport } from "../types";
 // Helper to get AI instance
 const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
 
+// Helper to clean JSON text (remove markdown code blocks)
+const cleanJsonText = (text: string): string => {
+  return text.replace(/```json\n?|```/g, '').trim();
+};
+
 export const generateQuestions = async (context: InterviewContext): Promise<GeneratedQuestion[]> => {
   const ai = getAI();
   const prompt = `
@@ -21,14 +26,19 @@ export const generateQuestions = async (context: InterviewContext): Promise<Gene
       config: {
         responseMimeType: "application/json",
         responseSchema: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              question: { type: Type.STRING },
-              idealAnswerKey: { type: Type.STRING }
-            },
-            required: ["question", "idealAnswerKey"]
+          type: Type.OBJECT,
+          properties: {
+            questions: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.OBJECT,
+                properties: {
+                  question: { type: Type.STRING },
+                  idealAnswerKey: { type: Type.STRING }
+                },
+                required: ["question", "idealAnswerKey"]
+              }
+            }
           }
         }
       }
@@ -36,10 +46,21 @@ export const generateQuestions = async (context: InterviewContext): Promise<Gene
 
     const text = response.text;
     if (!text) return [];
-    return JSON.parse(text) as GeneratedQuestion[];
+    
+    const cleanedText = cleanJsonText(text);
+    const parsed = JSON.parse(cleanedText);
+    
+    // Handle both root array (legacy behavior) and object wrapper (new behavior)
+    if (Array.isArray(parsed)) {
+      return parsed as GeneratedQuestion[];
+    } else if (parsed.questions && Array.isArray(parsed.questions)) {
+      return parsed.questions as GeneratedQuestion[];
+    }
+    
+    return [];
   } catch (error) {
     console.error("Error generating questions:", error);
-    return [];
+    throw error; // Re-throw to be handled by UI
   }
 };
 
@@ -92,7 +113,9 @@ export const generateInterviewReport = async (transcript: string, context: Inter
 
     const text = response.text;
     if (!text) return null;
-    return JSON.parse(text) as InterviewReport;
+    
+    const cleanedText = cleanJsonText(text);
+    return JSON.parse(cleanedText) as InterviewReport;
   } catch (error) {
     console.error("Error generating report:", error);
     return null;

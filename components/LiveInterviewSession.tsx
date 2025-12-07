@@ -92,7 +92,7 @@ export const LiveInterviewSession: React.FC<LiveInterviewSessionProps> = ({ cont
             setStatus('Disconnected');
           },
           onerror: (err) => {
-            console.error(err);
+            console.error("Gemini Live API Error:", err);
             setStatus('Error occurred');
           },
         }
@@ -130,6 +130,8 @@ export const LiveInterviewSession: React.FC<LiveInterviewSessionProps> = ({ cont
       if (sessionPromiseRef.current) {
         sessionPromiseRef.current.then((session: any) => {
             session.sendRealtimeInput({ media: pcmBlob });
+        }).catch(err => {
+            console.error("Error sending audio input:", err);
         });
       }
     };
@@ -190,9 +192,6 @@ export const LiveInterviewSession: React.FC<LiveInterviewSessionProps> = ({ cont
       
       if (serverContent.interrupted) {
          stopAllAudio();
-         // Don't clear transcription immediately, might want to keep partial? 
-         // Usually interrupted means user spoke, so we might have partial output.
-         // For simplicity, we just stop audio.
       }
     }
   };
@@ -200,6 +199,11 @@ export const LiveInterviewSession: React.FC<LiveInterviewSessionProps> = ({ cont
   const playAudioChunk = async (base64Audio: string) => {
     if (!audioContextRef.current) return;
     const ctx = audioContextRef.current;
+    
+    // Ensure context is running (required for some browsers if not started by user interaction)
+    if (ctx.state === 'suspended') {
+        try { await ctx.resume(); } catch(e) {}
+    }
     
     try {
         const arrayBuffer = decode(base64Audio);
@@ -235,17 +239,10 @@ export const LiveInterviewSession: React.FC<LiveInterviewSessionProps> = ({ cont
     });
     scheduledSourcesRef.current.clear();
     nextStartTimeRef.current = 0;
-    
-    // Reset output transcription buffer as it was interrupted
-    // currentOutputTransRef.current = ''; 
   };
 
   const cleanupSession = () => {
     if (sessionPromiseRef.current) {
-        // There isn't a strict 'disconnect' on the promise wrapper in the snippet, 
-        // but typically we stop sending data and close contexts.
-        // If we had the session object, we'd call close().
-        // Since we only have the promise, let's assume dropping references and closing contexts is enough for client-side cleanup.
         sessionPromiseRef.current.then((s: any) => {
              if (s.close) s.close();
         }).catch(() => {});

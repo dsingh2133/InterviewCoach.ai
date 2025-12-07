@@ -2,7 +2,15 @@ export enum AppStep {
   SETUP = 'SETUP',
   PREPARATION = 'PREPARATION',
   INTERVIEW = 'INTERVIEW',
-  FEEDBACK = 'FEEDBACK'
+  FEEDBACK = 'FEEDBACK',
+  DASHBOARD = 'DASHBOARD'
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  joinedAt: number;
 }
 
 export interface InterviewContext {
@@ -22,6 +30,14 @@ export interface InterviewReport {
   strengths: string[];
   improvements: string[];
   metrics: InterviewMetrics;
+}
+
+export interface InterviewSession {
+  id: string;
+  timestamp: number;
+  jobRole: string; // Extracted or inferred from JD
+  report: InterviewReport;
+  context: InterviewContext; // Added to allow retrying specific sessions
 }
 
 export interface GeneratedQuestion {

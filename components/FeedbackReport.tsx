@@ -3,14 +3,16 @@ import { InterviewReport } from '../types';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar 
 } from 'recharts';
-import { Award, TrendingUp, AlertCircle, RefreshCcw } from 'lucide-react';
+import { Award, TrendingUp, AlertCircle, RefreshCcw, LayoutDashboard, Repeat } from 'lucide-react';
 
 interface FeedbackReportProps {
   report: InterviewReport | null;
   onRestart: () => void;
+  onRetake: () => void;
+  onDashboard?: () => void;
 }
 
-export const FeedbackReport: React.FC<FeedbackReportProps> = ({ report, onRestart }) => {
+export const FeedbackReport: React.FC<FeedbackReportProps> = ({ report, onRestart, onRetake, onDashboard }) => {
   if (!report) return null;
 
   const chartData = [
@@ -22,15 +24,33 @@ export const FeedbackReport: React.FC<FeedbackReportProps> = ({ report, onRestar
 
   return (
     <div className="max-w-5xl mx-auto w-full p-6 animate-fade-in space-y-8 pb-12">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
          <h2 className="text-3xl font-bold text-slate-100">Performance Analysis</h2>
-         <button 
-           onClick={onRestart}
-           className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors"
-         >
-           <RefreshCcw size={16} />
-           New Interview
-         </button>
+         <div className="flex flex-wrap justify-center gap-3">
+           {onDashboard && (
+             <button 
+               onClick={onDashboard}
+               className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors border border-slate-700"
+             >
+               <LayoutDashboard size={16} />
+               Dashboard
+             </button>
+           )}
+           <button 
+             onClick={onRestart}
+             className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors border border-slate-700"
+           >
+             <RefreshCcw size={16} />
+             New Setup
+           </button>
+           <button 
+             onClick={onRetake}
+             className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white transition-colors shadow-lg shadow-blue-500/20"
+           >
+             <Repeat size={16} />
+             Practice Again
+           </button>
+         </div>
       </div>
 
       {/* Summary Card */}
