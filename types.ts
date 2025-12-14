@@ -1,4 +1,5 @@
 export enum AppStep {
+  LANDING = 'LANDING',
   SETUP = 'SETUP',
   PREPARATION = 'PREPARATION',
   INTERVIEW = 'INTERVIEW',

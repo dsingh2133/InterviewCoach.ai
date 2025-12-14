@@ -4,14 +4,15 @@ import { PreparationPhase } from './components/PreparationPhase';
 import { LiveInterviewSession } from './components/LiveInterviewSession';
 import { FeedbackReport } from './components/FeedbackReport';
 import { Dashboard } from './components/Dashboard';
+import { LandingPage } from './components/LandingPage';
 import { AuthModal } from './components/AuthModal';
 import { AppStep, InterviewContext, GeneratedQuestion, TranscriptItem, InterviewReport, User, InterviewSession } from './types';
 import { generateQuestions, generateInterviewReport } from './services/geminiService';
-import { Loader2, LogIn, UserPlus, LogOut, LayoutDashboard, AlertCircle } from 'lucide-react';
+import { Loader2, LogIn, UserPlus, LogOut, LayoutDashboard, AlertCircle, Menu } from 'lucide-react';
 
 export default function App() {
   // State
-  const [step, setStep] = useState<AppStep>(AppStep.SETUP);
+  const [step, setStep] = useState<AppStep>(AppStep.LANDING);
   const [context, setContext] = useState<InterviewContext>({ resume: '', jobDescription: '' });
   const [questions, setQuestions] = useState<GeneratedQuestion[]>([]);
   const [report, setReport] = useState<InterviewReport | null>(null);
@@ -29,6 +30,8 @@ export default function App() {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
       setStep(AppStep.DASHBOARD);
+    } else {
+      setStep(AppStep.LANDING);
     }
   }, []);
 
@@ -59,6 +62,24 @@ export default function App() {
     }
   }, [user]);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    if (step !== AppStep.LANDING) {
+      setStep(AppStep.LANDING);
+      // Wait for React to render the LandingPage before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   const handleSetupComplete = async (resume: string, jobDesc: string) => {
     setContext({ resume, jobDescription: jobDesc });
@@ -172,7 +193,7 @@ export default function App() {
   const handleLogin = (newUser: User) => {
     setUser(newUser);
     // Merge local history if any? For now just overwrite or keep local
-    if (step === AppStep.SETUP) {
+    if (step === AppStep.LANDING || step === AppStep.SETUP) {
        setStep(AppStep.DASHBOARD);
     }
   };
@@ -181,11 +202,11 @@ export default function App() {
     setUser(null);
     setHistory([]);
     localStorage.removeItem('interview_saarthi_history');
-    setStep(AppStep.SETUP);
+    setStep(AppStep.LANDING);
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#050A15] text-slate-100 flex flex-col font-sans overflow-x-hidden">
       <AuthModal 
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 
@@ -193,58 +214,38 @@ export default function App() {
       />
 
       {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+      <header className={`border-b border-slate-900 bg-[#050A15]/80 backdrop-blur-md sticky top-0 z-50 ${step === AppStep.LANDING ? 'border-transparent' : ''}`}>
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           
           {/* Left: Logo */}
           <div 
-            className="flex items-center gap-2 shrink-0 z-10 cursor-pointer"
-            onClick={() => user ? setStep(AppStep.DASHBOARD) : setStep(AppStep.SETUP)}
+            className="flex items-center gap-3 shrink-0 cursor-pointer"
+            onClick={() => user ? setStep(AppStep.DASHBOARD) : setStep(AppStep.LANDING)}
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <span className="font-bold text-white text-lg">I</span>
+            <div className="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <span className="font-bold text-[#050A15] text-xl">S</span>
             </div>
-            <span className="font-bold text-xl tracking-tight hidden sm:inline">InterviewSaarthi<span className="text-blue-500">.ai</span></span>
-            <span className="font-bold text-xl tracking-tight sm:hidden">IS<span className="text-blue-500">.ai</span></span>
+            <span className="font-bold text-xl tracking-tight text-white hidden sm:inline">InterviewSaarthi</span>
           </div>
           
-          {/* Center: Steps (Hidden on dashboard) */}
-          {step !== AppStep.DASHBOARD && (
-            <div className="hidden md:flex items-center gap-4 text-sm font-medium text-slate-500 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-               <div className={`flex items-center gap-2 transition-colors ${step === AppStep.SETUP ? 'text-blue-400' : ''}`}>
-                 <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs ${step === AppStep.SETUP ? 'border-blue-400 bg-blue-400/10' : 'border-slate-700'}`}>1</span> 
-                 <span>Setup</span>
-               </div>
-               <div className="w-8 h-[1px] bg-slate-800"></div>
-               <div className={`flex items-center gap-2 transition-colors ${step === AppStep.PREPARATION ? 'text-blue-400' : ''}`}>
-                 <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs ${step === AppStep.PREPARATION ? 'border-blue-400 bg-blue-400/10' : 'border-slate-700'}`}>2</span>
-                 <span>Prep</span>
-               </div>
-               <div className="w-8 h-[1px] bg-slate-800"></div>
-               <div className={`flex items-center gap-2 transition-colors ${step === AppStep.INTERVIEW ? 'text-blue-400' : ''}`}>
-                 <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs ${step === AppStep.INTERVIEW ? 'border-blue-400 bg-blue-400/10' : 'border-slate-700'}`}>3</span>
-                 <span>Live</span>
-               </div>
-               <div className="w-8 h-[1px] bg-slate-800"></div>
-               <div className={`flex items-center gap-2 transition-colors ${step === AppStep.FEEDBACK ? 'text-blue-400' : ''}`}>
-                 <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs ${step === AppStep.FEEDBACK ? 'border-blue-400 bg-blue-400/10' : 'border-slate-700'}`}>4</span>
-                 <span>Results</span>
-               </div>
-            </div>
-          )}
+          {/* Middle: Navigation (Visible on Landing/Setup mostly) */}
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+            <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="hover:text-white transition-colors cursor-pointer">Features</a>
+            <a href="#how-it-works" onClick={(e) => handleNavClick(e, 'how-it-works')} className="hover:text-white transition-colors cursor-pointer">How It Works</a>
+            <a href="#pricing" onClick={(e) => handleNavClick(e, 'pricing')} className="hover:text-white transition-colors cursor-pointer">Pricing</a>
+          </div>
 
-          {/* Right: Auth Buttons */}
-          <div className="flex items-center gap-3 shrink-0 z-10">
+          {/* Right: Actions */}
+          <div className="flex items-center gap-4 shrink-0">
              {user ? (
                <div className="flex items-center gap-4">
                  <button 
                    onClick={() => setStep(AppStep.DASHBOARD)}
-                   className={`flex items-center gap-2 text-sm font-medium px-3 py-2 rounded-lg transition-colors ${step === AppStep.DASHBOARD ? 'text-blue-400 bg-blue-400/10' : 'text-slate-400 hover:text-white'}`}
+                   className={`flex items-center gap-2 text-sm font-medium px-3 py-2 rounded-lg transition-colors ${step === AppStep.DASHBOARD ? 'text-cyan-400 bg-cyan-950/30' : 'text-slate-400 hover:text-white'}`}
                  >
                    <LayoutDashboard size={18} />
                    <span className="hidden sm:inline">Dashboard</span>
                  </button>
-                 <div className="h-6 w-[1px] bg-slate-800"></div>
                  <button 
                    onClick={handleLogout}
                    className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-red-400 transition-colors"
@@ -252,7 +253,7 @@ export default function App() {
                  >
                    <LogOut size={18} />
                  </button>
-                 <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-sm font-bold shadow-md">
+                 <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-sm font-bold text-white shadow-md">
                    {user.name.charAt(0).toUpperCase()}
                  </div>
                </div>
@@ -260,17 +261,19 @@ export default function App() {
                <>
                  <button 
                    onClick={() => setIsAuthModalOpen(true)}
-                   className="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors px-3 py-2"
+                   className="hidden sm:block text-sm font-medium text-slate-300 hover:text-white transition-colors"
                  >
-                   <LogIn size={16} />
-                   <span>Sign In</span>
+                   Sign In
                  </button>
                  <button 
-                   onClick={() => setIsAuthModalOpen(true)}
-                   className="flex items-center gap-2 text-sm font-medium bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-full transition-all shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95"
+                   onClick={() => setStep(AppStep.SETUP)}
+                   className="hidden sm:flex items-center justify-center px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold text-sm transition-all shadow-lg shadow-orange-500/20"
                  >
-                   <UserPlus size={16} />
-                   <span>Sign Up</span>
+                   Start Free
+                 </button>
+                 {/* Mobile Menu Icon Placeholder */}
+                 <button className="sm:hidden text-slate-300">
+                    <Menu size={24} />
                  </button>
                </>
              )}
@@ -279,15 +282,11 @@ export default function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col relative overflow-y-auto">
-        {/* Background Gradients */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
-
+      <main className="flex-1 flex flex-col relative w-full">
         {/* Error Toast */}
         {error && (
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up w-full max-w-md px-4">
-             <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-lg shadow-xl flex items-start gap-3 backdrop-blur-md">
+          <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up w-full max-w-md px-4">
+             <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-xl shadow-2xl flex items-start gap-3 backdrop-blur-md">
                <AlertCircle className="shrink-0 text-red-500" size={20} />
                <div className="flex-1 text-sm">{error}</div>
                <button onClick={() => setError(null)} className="text-red-400 hover:text-red-100">
@@ -297,16 +296,11 @@ export default function App() {
           </div>
         )}
 
-        {/* Mobile Steps Indicator */}
-        {step !== AppStep.DASHBOARD && (
-          <div className="md:hidden flex items-center justify-center gap-3 py-3 border-b border-slate-800/50 bg-slate-950/30 backdrop-blur-sm sticky top-0 z-40">
-             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Progress</span>
-             <div className="flex items-center gap-1.5">
-                {[AppStep.SETUP, AppStep.PREPARATION, AppStep.INTERVIEW, AppStep.FEEDBACK].map((s, i) => (
-                    <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${step === s ? 'w-8 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'w-2 bg-slate-800'}`}></div>
-                ))}
-             </div>
-          </div>
+        {step === AppStep.LANDING && (
+          <LandingPage 
+            onStart={() => setStep(AppStep.SETUP)} 
+            onSignIn={() => setIsAuthModalOpen(true)} 
+          />
         )}
 
         {step === AppStep.DASHBOARD && user && (
@@ -341,7 +335,7 @@ export default function App() {
         {step === AppStep.FEEDBACK && (
           loading ? (
             <div className="flex flex-col items-center justify-center flex-1 animate-fade-in">
-               <Loader2 className="w-12 h-12 text-blue-500 animate-spin mb-4" />
+               <Loader2 className="w-12 h-12 text-cyan-500 animate-spin mb-4" />
                <p className="text-slate-400">Compiling your performance report...</p>
                {user && <p className="text-slate-500 text-sm mt-2">Saving to your profile...</p>}
             </div>

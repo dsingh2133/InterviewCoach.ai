@@ -99,7 +99,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
     setTimeout(() => {
       const user: UserType = {
         id: crypto.randomUUID(),
-        name: `User (${provider})`,
+        name: isSignUp && name ? name : `User (${provider})`,
         email: emailToUse,
         joinedAt: Date.now()
       };
