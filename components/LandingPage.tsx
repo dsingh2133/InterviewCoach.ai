@@ -92,7 +92,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onSignIn }) =
                 <div className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-orange-500 uppercase bg-orange-500/10 rounded-full">
                     Why Choose Us
                 </div>
-                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 whitespace-nowrap">
                     Master Every Stage of the Interview
                 </h2>
                 <p className="text-slate-400 text-lg">
@@ -100,69 +100,69 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onSignIn }) =
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Feature 1 */}
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all group">
-                    <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
-                        <Mic size={24} />
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all group">
+                    <div className="w-10 h-10 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-110 transition-transform">
+                        <Mic size={20} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">Real-time Voice AI</h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <h3 className="text-lg font-bold text-white mb-2">Real-time Voice AI</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
                         Experience natural, conversational interviews. Our AI adapts to your pace, interrupts naturally, and simulates a real human interviewer.
                     </p>
                 </div>
 
                 {/* Feature 2 */}
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl hover:bg-slate-900/60 hover:border-blue-500/30 transition-all group">
-                    <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
-                        <FileText size={24} />
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl hover:bg-slate-900/60 hover:border-blue-500/30 transition-all group">
+                    <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-4 group-hover:scale-110 transition-transform">
+                        <FileText size={20} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">Resume Analysis</h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <h3 className="text-lg font-bold text-white mb-2">Resume Analysis</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
                         Upload your resume and job description. The system generates questions specifically targeting your experience gaps and role requirements.
                     </p>
                 </div>
 
                 {/* Feature 3 */}
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl hover:bg-slate-900/60 hover:border-purple-500/30 transition-all group">
-                    <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
-                        <Activity size={24} />
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl hover:bg-slate-900/60 hover:border-purple-500/30 transition-all group">
+                    <div className="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">
+                        <Activity size={20} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">Instant Feedback</h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <h3 className="text-lg font-bold text-white mb-2">Instant Feedback</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
                         Get a detailed scorecard immediately after your session. We analyze your confidence, clarity, technical accuracy, and cultural fit.
                     </p>
                 </div>
 
                 {/* Feature 4 */}
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl hover:bg-slate-900/60 hover:border-orange-500/30 transition-all group">
-                    <div className="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-400 mb-6 group-hover:scale-110 transition-transform">
-                        <Target size={24} />
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl hover:bg-slate-900/60 hover:border-orange-500/30 transition-all group">
+                    <div className="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-400 mb-4 group-hover:scale-110 transition-transform">
+                        <Target size={20} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">STAR Method Coaching</h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <h3 className="text-lg font-bold text-white mb-2">STAR Method Coaching</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
                         Learn to structure your answers effectively. Our AI guides you to use the Situation, Task, Action, Result framework for maximum impact.
                     </p>
                 </div>
 
                 {/* Feature 5 */}
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl hover:bg-slate-900/60 hover:border-green-500/30 transition-all group">
-                    <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 mb-6 group-hover:scale-110 transition-transform">
-                        <Database size={24} />
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl hover:bg-slate-900/60 hover:border-green-500/30 transition-all group">
+                    <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 mb-4 group-hover:scale-110 transition-transform">
+                        <Database size={20} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">Vast Question Bank</h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <h3 className="text-lg font-bold text-white mb-2">Vast Question Bank</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
                         Access thousands of role-specific questions generated from real tech, management, and creative job descriptions across the globe.
                     </p>
                 </div>
 
                 {/* Feature 6 */}
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl hover:bg-slate-900/60 hover:border-pink-500/30 transition-all group">
-                    <div className="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center text-pink-400 mb-6 group-hover:scale-110 transition-transform">
-                        <TrendingUp size={24} />
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl hover:bg-slate-900/60 hover:border-pink-500/30 transition-all group">
+                    <div className="w-10 h-10 bg-pink-500/10 rounded-xl flex items-center justify-center text-pink-400 mb-4 group-hover:scale-110 transition-transform">
+                        <TrendingUp size={20} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">Progress Tracking</h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <h3 className="text-lg font-bold text-white mb-2">Progress Tracking</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
                         Monitor your improvement over time with our detailed dashboard. Visualize your growth in confidence and answer quality.
                     </p>
                 </div>
@@ -172,81 +172,81 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onSignIn }) =
 
       {/* How It Works Section */}
       <section id="how-it-works" className="py-24 px-6 bg-[#050A15] scroll-mt-24">
-         <div className="max-w-7xl mx-auto">
+         <div className="max-w-[90rem] mx-auto">
              <div className="text-center mb-16 space-y-4">
-                <h2 className="text-3xl md:text-5xl font-bold text-white">From Nervous to Confident in 5 Steps</h2>
+                <h2 className="text-3xl md:text-5xl font-bold text-white whitespace-nowrap">From Nervous to Confident in 5 Steps</h2>
                 <p className="text-slate-400 text-lg max-w-2xl mx-auto">
                    A simple, effective journey to interview mastery.
                 </p>
              </div>
              
-             <div className="flex flex-wrap justify-center gap-8 relative z-10">
+             <div className="flex flex-wrap justify-center gap-3 relative z-10">
                 {/* Step 1 */}
-                <div className="w-full md:w-[calc(33.333%-2rem)] lg:w-[calc(20%-2rem)] min-w-[250px] bg-[#0B1221] border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center hover:border-cyan-500/50 transition-colors shadow-lg group">
-                   <div className="w-16 h-16 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-cyan-400 mb-6 text-xl font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
+                <div className="w-full md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-0.6rem)] min-w-[200px] bg-[#0B1221] border border-slate-800 p-4 rounded-2xl text-center flex flex-col items-center hover:border-cyan-500/50 transition-colors shadow-lg group">
+                   <div className="w-12 h-12 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-cyan-400 mb-4 text-lg font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
                       01
                    </div>
-                   <div className="mb-4 bg-cyan-500/10 p-3 rounded-xl text-cyan-400">
-                      <Upload size={24} />
+                   <div className="mb-3 bg-cyan-500/10 p-2.5 rounded-xl text-cyan-400">
+                      <Upload size={20} />
                    </div>
-                   <h3 className="text-lg font-bold text-white mb-2">Upload Resume & JD</h3>
-                   <p className="text-slate-400 text-sm leading-relaxed">
+                   <h3 className="text-base font-bold text-white mb-2">Upload Resume & JD</h3>
+                   <p className="text-slate-400 text-xs leading-relaxed">
                       AI extracts your skills, experience, and the job requirements to create personalized questions.
                    </p>
                 </div>
 
                 {/* Step 2 */}
-                <div className="w-full md:w-[calc(33.333%-2rem)] lg:w-[calc(20%-2rem)] min-w-[250px] bg-[#0B1221] border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center hover:border-purple-500/50 transition-colors shadow-lg group">
-                   <div className="w-16 h-16 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-purple-400 mb-6 text-xl font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
+                <div className="w-full md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-0.6rem)] min-w-[200px] bg-[#0B1221] border border-slate-800 p-4 rounded-2xl text-center flex flex-col items-center hover:border-purple-500/50 transition-colors shadow-lg group">
+                   <div className="w-12 h-12 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-purple-400 mb-4 text-lg font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
                       02
                    </div>
-                   <div className="mb-4 bg-purple-500/10 p-3 rounded-xl text-purple-400">
-                      <Settings size={24} />
+                   <div className="mb-3 bg-purple-500/10 p-2.5 rounded-xl text-purple-400">
+                      <Settings size={20} />
                    </div>
-                   <h3 className="text-lg font-bold text-white mb-2">Choose Interview Mode</h3>
-                   <p className="text-slate-400 text-sm leading-relaxed">
+                   <h3 className="text-base font-bold text-white mb-2">Choose Interview Mode</h3>
+                   <p className="text-slate-400 text-xs leading-relaxed">
                       Select voice/text mode, interview type (HR, Technical, Behavioral), and difficulty level.
                    </p>
                 </div>
 
                 {/* Step 3 */}
-                <div className="w-full md:w-[calc(33.333%-2rem)] lg:w-[calc(20%-2rem)] min-w-[250px] bg-[#0B1221] border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center hover:border-orange-500/50 transition-colors shadow-lg group">
-                   <div className="w-16 h-16 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-orange-400 mb-6 text-xl font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
+                <div className="w-full md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-0.6rem)] min-w-[200px] bg-[#0B1221] border border-slate-800 p-4 rounded-2xl text-center flex flex-col items-center hover:border-orange-500/50 transition-colors shadow-lg group">
+                   <div className="w-12 h-12 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-orange-400 mb-4 text-lg font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
                       03
                    </div>
-                   <div className="mb-4 bg-orange-500/10 p-3 rounded-xl text-orange-400">
-                      <Mic size={24} />
+                   <div className="mb-3 bg-orange-500/10 p-2.5 rounded-xl text-orange-400">
+                      <Mic size={20} />
                    </div>
-                   <h3 className="text-lg font-bold text-white mb-2">Practice the Interview</h3>
-                   <p className="text-slate-400 text-sm leading-relaxed">
+                   <h3 className="text-base font-bold text-white mb-2">Practice the Interview</h3>
+                   <p className="text-slate-400 text-xs leading-relaxed">
                       Engage with our AI interviewer. Get real-time hints and dynamic follow-up questions.
                    </p>
                 </div>
 
                 {/* Step 4 */}
-                <div className="w-full md:w-[calc(33.333%-2rem)] lg:w-[calc(20%-2rem)] min-w-[250px] bg-[#0B1221] border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center hover:border-green-500/50 transition-colors shadow-lg group">
-                   <div className="w-16 h-16 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-green-400 mb-6 text-xl font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
+                <div className="w-full md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-0.6rem)] min-w-[200px] bg-[#0B1221] border border-slate-800 p-4 rounded-2xl text-center flex flex-col items-center hover:border-green-500/50 transition-colors shadow-lg group">
+                   <div className="w-12 h-12 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-green-400 mb-4 text-lg font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
                       04
                    </div>
-                   <div className="mb-4 bg-green-500/10 p-3 rounded-xl text-green-400">
-                      <FileBarChart size={24} />
+                   <div className="mb-3 bg-green-500/10 p-2.5 rounded-xl text-green-400">
+                      <FileBarChart size={20} />
                    </div>
-                   <h3 className="text-lg font-bold text-white mb-2">Receive Feedback</h3>
-                   <p className="text-slate-400 text-sm leading-relaxed">
+                   <h3 className="text-base font-bold text-white mb-2">Receive Feedback</h3>
+                   <p className="text-slate-400 text-xs leading-relaxed">
                       Get detailed scores on communication, confidence, and domain knowledge with improvement tips.
                    </p>
                 </div>
 
                 {/* Step 5 */}
-                <div className="w-full md:w-[calc(33.333%-2rem)] lg:w-[calc(20%-2rem)] min-w-[250px] bg-[#0B1221] border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center hover:border-pink-500/50 transition-colors shadow-lg group">
-                   <div className="w-16 h-16 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-pink-400 mb-6 text-xl font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
+                <div className="w-full md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-0.6rem)] min-w-[200px] bg-[#0B1221] border border-slate-800 p-4 rounded-2xl text-center flex flex-col items-center hover:border-pink-500/50 transition-colors shadow-lg group">
+                   <div className="w-12 h-12 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-pink-400 mb-4 text-lg font-bold relative z-10 shadow-xl group-hover:scale-110 transition-transform">
                       05
                    </div>
-                   <div className="mb-4 bg-pink-500/10 p-3 rounded-xl text-pink-400">
-                      <TrendingUp size={24} />
+                   <div className="mb-3 bg-pink-500/10 p-2.5 rounded-xl text-pink-400">
+                      <TrendingUp size={20} />
                    </div>
-                   <h3 className="text-lg font-bold text-white mb-2">Track Progress</h3>
-                   <p className="text-slate-400 text-sm leading-relaxed">
+                   <h3 className="text-base font-bold text-white mb-2">Track Progress</h3>
+                   <p className="text-slate-400 text-xs leading-relaxed">
                       Monitor your performance over time. See strengths grow and weaknesses improve.
                    </p>
                 </div>
